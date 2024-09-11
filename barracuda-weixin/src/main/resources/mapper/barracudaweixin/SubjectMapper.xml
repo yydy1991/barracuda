@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barracuda.barracudaweixin.garden.subject.mapper.SubjectMapper">
+    
+    <resultMap type="Subject" id="SubjectResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="isSystem"    column="is_system"    />
+        <result property="wxUserId"    column="wx_user_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="delFlag"    column="del_flag"    />
+    </resultMap>
+
+    <sql id="selectSubjectVo">
+        select id, name, is_system, wx_user_id, create_time, del_flag from gd_subject
+    </sql>
+
+    <select id="selectSubjectList" parameterType="Subject" resultMap="SubjectResult">
+        <include refid="selectSubjectVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="isSystem != null "> and is_system = #{isSystem}</if>
+            <if test="wxUserId != null "> and wx_user_id = #{wxUserId}</if>
+        </where>
+    </select>
+    
+    <select id="selectSubjectById" parameterType="Long" resultMap="SubjectResult">
+        <include refid="selectSubjectVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSubject" parameterType="Subject" useGeneratedKeys="true" keyProperty="id">
+        insert into gd_subject
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="isSystem != null">is_system,</if>
+            <if test="wxUserId != null">wx_user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="delFlag != null">del_flag,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="isSystem != null">#{isSystem},</if>
+            <if test="wxUserId != null">#{wxUserId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSubject" parameterType="Subject">
+        update gd_subject
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="isSystem != null">is_system = #{isSystem},</if>
+            <if test="wxUserId != null">wx_user_id = #{wxUserId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSubjectById" parameterType="String">
+        delete from gd_subject where id = #{id}
+    </delete>
+
+    <delete id="deleteSubjectByIds" parameterType="String">
+        delete from gd_subject where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

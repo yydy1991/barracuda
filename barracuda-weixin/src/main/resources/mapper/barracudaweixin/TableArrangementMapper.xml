@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barracuda.barracudaweixin.garden.table_arrangement.mapper.TableArrangementMapper">
+    
+    <resultMap type="TableArrangement" id="TableArrangementResult">
+        <result property="id"    column="id"    />
+        <result property="tableId"    column="table_id"    />
+        <result property="subjectId"    column="subject_id"    />
+        <result property="weekIndex"    column="week_index"    />
+        <result property="lessonIndex"    column="lesson_index"    />
+    </resultMap>
+
+    <sql id="selectTableArrangementVo">
+        select id, table_id, subject_id, week_index, lesson_index from gd_table_arrangement
+    </sql>
+
+    <select id="selectTableArrangementList" parameterType="TableArrangement" resultMap="TableArrangementResult">
+        <include refid="selectTableArrangementVo"/>
+        <where>  
+            <if test="tableId != null "> and table_id = #{tableId}</if>
+            <if test="subjectId != null "> and subject_id = #{subjectId}</if>
+            <if test="weekIndex != null "> and week_index = #{weekIndex}</if>
+            <if test="lessonIndex != null "> and lesson_index = #{lessonIndex}</if>
+        </where>
+    </select>
+    
+    <select id="selectTableArrangementById" parameterType="String" resultMap="TableArrangementResult">
+        <include refid="selectTableArrangementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTableArrangement" parameterType="TableArrangement" useGeneratedKeys="true" keyProperty="id">
+        insert into gd_table_arrangement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tableId != null">table_id,</if>
+            <if test="subjectId != null">subject_id,</if>
+            <if test="weekIndex != null">week_index,</if>
+            <if test="lessonIndex != null">lesson_index,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tableId != null">#{tableId},</if>
+            <if test="subjectId != null">#{subjectId},</if>
+            <if test="weekIndex != null">#{weekIndex},</if>
+            <if test="lessonIndex != null">#{lessonIndex},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTableArrangement" parameterType="TableArrangement">
+        update gd_table_arrangement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tableId != null">table_id = #{tableId},</if>
+            <if test="subjectId != null">subject_id = #{subjectId},</if>
+            <if test="weekIndex != null">week_index = #{weekIndex},</if>
+            <if test="lessonIndex != null">lesson_index = #{lessonIndex},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTableArrangementById" parameterType="String">
+        delete from gd_table_arrangement where id = #{id}
+    </delete>
+
+    <delete id="deleteTableArrangementByIds" parameterType="String">
+        delete from gd_table_arrangement where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

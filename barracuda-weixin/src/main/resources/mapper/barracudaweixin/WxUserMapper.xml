@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.barracuda.barracudaweixin.user.mapper.WxUserMapper">
+    
+    <resultMap type="com.barracuda.barracudaweixin.user.domain.WxUser" id="WxUserResult">
+        <result property="id"    column="id"    />
+        <result property="openId"    column="open_id"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectWxUserVo">
+        select id, open_id, create_time from wx_user
+    </sql>
+
+    <select id="selectWxUserList" parameterType="com.barracuda.barracudaweixin.user.domain.WxUser" resultMap="WxUserResult">
+        <include refid="selectWxUserVo"/>
+        <where>  
+            <if test="openId != null  and openId != ''"> and open_id = #{openId}</if>
+        </where>
+    </select>
+    
+    <select id="selectWxUserById" parameterType="String" resultMap="WxUserResult">
+        <include refid="selectWxUserVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertWxUser" parameterType="com.barracuda.barracudaweixin.user.domain.WxUser" useGeneratedKeys="true" keyProperty="id">
+        insert into wx_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="openId != null">open_id,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="openId != null">#{openId},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWxUser" parameterType="com.barracuda.barracudaweixin.user.domain.WxUser">
+        update wx_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="openId != null">open_id = #{openId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWxUserById" parameterType="String">
+        delete from wx_user where id = #{id}
+    </delete>
+
+    <delete id="deleteWxUserByIds" parameterType="String">
+        delete from wx_user where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="countUsers" resultType="long">
+        select count(*)
+        from wx_user
+        <where>
+            <if test="openId != null  and openId != ''">and open_id = #{openId}</if>
+        </where>
+    </select>
+
+</mapper>

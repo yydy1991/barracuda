@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改课程布置')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-arrangement-edit" th:object="${tableArrangement}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">课程表id：</label>
+                    <div class="col-sm-8">
+                        <input name="tableId" th:field="*{tableId}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">：</label>
+                    <div class="col-sm-8">
+                        <input name="subjectId" th:field="*{subjectId}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">：</label>
+                    <div class="col-sm-8">
+                        <input name="weekIndex" th:field="*{weekIndex}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">：</label>
+                    <div class="col-sm-8">
+                        <input name="lessonIndex" th:field="*{lessonIndex}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "barracudaweixin/arrangement";
+        $("#form-arrangement-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-arrangement-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>
