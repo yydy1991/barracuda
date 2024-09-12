@@ -7,95 +7,94 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 课节对象 gd_period
- * 
+ *
  * @author hm
  * @date 2024-09-06
  */
-public class Period extends BaseEntity
-{
+public class Period extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键 */
+    /**
+     * 主键
+     */
     private Long id;
 
-    /** 删除标识 0=未删除,1=已删除 */
+    /**
+     * 删除标识 0=未删除,1=已删除
+     */
     private Long delFlag;
 
-    /** 课程表id */
+    /**
+     * 课程表id
+     */
     @Excel(name = "课程表id")
     private Long tableId;
 
-    /** 名称 */
+    /**
+     * 名称
+     */
     @Excel(name = "名称")
     private String name;
 
-    /** 排序 */
+    /**
+     * 排序
+     */
     @Excel(name = "排序")
     private Long sort;
 
-    public void setId(Long id) 
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId() 
-    {
+    public Long getId() {
         return id;
     }
 
-    public void setDelFlag(Long delFlag) 
-    {
+    public void setDelFlag(Long delFlag) {
         this.delFlag = delFlag;
     }
 
-    public Long getDelFlag() 
-    {
+    public Long getDelFlag() {
         return delFlag;
     }
 
-    public void setTableId(Long tableId) 
-    {
+    public void setTableId(Long tableId) {
         this.tableId = tableId;
     }
 
-    public Long getTableId() 
-    {
+    public Long getTableId() {
         return tableId;
     }
 
-    public void setName(String name) 
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName() 
-    {
+    public String getName() {
         return name;
     }
 
-    public void setSort(Long sort) 
-    {
+    public void setSort(Long sort) {
         this.sort = sort;
     }
 
-    public Long getSort() 
-    {
+    public Long getSort() {
         return sort;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("delFlag", getDelFlag())
-            .append("remark", getRemark())
-            .append("tableId", getTableId())
-            .append("name", getName())
-            .append("sort", getSort())
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("id", getId())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .append("delFlag", getDelFlag())
+                .append("remark", getRemark())
+                .append("tableId", getTableId())
+                .append("name", getName())
+                .append("sort", getSort())
+                .toString();
     }
 }
