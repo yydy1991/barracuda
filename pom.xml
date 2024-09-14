@@ -198,6 +198,11 @@
                 <artifactId>barracuda-weixin</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.barracuda</groupId>
+                <artifactId>barracuda-flyway</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -209,6 +214,7 @@
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
         <module>barracuda-weixin</module>
+        <module>barracuda-flyway</module>
     </modules>
     <packaging>pom</packaging>
 

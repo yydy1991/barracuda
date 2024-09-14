@@ -71,6 +71,10 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>barracuda-weixin</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.barracuda</groupId>
+            <artifactId>barracuda-flyway</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
