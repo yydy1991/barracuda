@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.barracuda.barracudaweixin.garden.table_arrangement.mapper.TableArrangementMapper">
     
-    <resultMap type="TableArrangement" id="TableArrangementResult">
+    <resultMap type="com.barracuda.barracudaweixin.garden.table_arrangement.domain.TableArrangement" id="TableArrangementResult">
         <result property="id"    column="id"    />
         <result property="tableId"    column="table_id"    />
         <result property="subjectId"    column="subject_id"    />
@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select id, table_id, subject_id, week_index, lesson_index from gd_table_arrangement
     </sql>
 
-    <select id="selectTableArrangementList" parameterType="TableArrangement" resultMap="TableArrangementResult">
+    <select id="selectTableArrangementList" parameterType="com.barracuda.barracudaweixin.garden.table_arrangement.domain.TableArrangement" resultMap="TableArrangementResult">
         <include refid="selectTableArrangementVo"/>
         <where>  
             <if test="tableId != null "> and table_id = #{tableId}</if>
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
-    <insert id="insertTableArrangement" parameterType="TableArrangement" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertTableArrangement" parameterType="com.barracuda.barracudaweixin.garden.table_arrangement.domain.TableArrangement" useGeneratedKeys="true" keyProperty="id">
         insert into gd_table_arrangement
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="tableId != null">table_id,</if>
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
-    <update id="updateTableArrangement" parameterType="TableArrangement">
+    <update id="updateTableArrangement" parameterType="com.barracuda.barracudaweixin.garden.table_arrangement.domain.TableArrangement">
         update gd_table_arrangement
         <trim prefix="SET" suffixOverrides=",">
             <if test="tableId != null">table_id = #{tableId},</if>
