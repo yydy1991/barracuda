@@ -14,10 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
         <result property="name"    column="name"    />
         <result property="weekNum"    column="week_num"    />
+        <result property="periodNum"    column="period_num"    />
     </resultMap>
 
     <sql id="selectTableVo">
-        select id, create_by, create_time, update_by, update_time, del_flag, remark, name, week_num from gd_table
+        select id, create_by, create_time, update_by, update_time, del_flag, remark, name, week_num, period_num from gd_table
     </sql>
 
     <select id="selectTableList" parameterType="com.barracuda.barracudaweixin.garden.table.domain.Table" resultMap="TableResult">
@@ -25,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
             <if test="weekNum != null "> and week_num = #{weekNum}</if>
+            <if test="periodNum != null "> and period_num = #{periodNum}</if>
         </where>
     </select>
     
@@ -44,6 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark != null">remark,</if>
             <if test="name != null">name,</if>
             <if test="weekNum != null">week_num,</if>
+            <if test="periodNum != null">period_num,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="createBy != null">#{createBy},</if>
@@ -54,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark != null">#{remark},</if>
             <if test="name != null">#{name},</if>
             <if test="weekNum != null">#{weekNum},</if>
+            <if test="periodNum != null">#{periodNum},</if>
          </trim>
     </insert>
 
@@ -68,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark != null">remark = #{remark},</if>
             <if test="name != null">name = #{name},</if>
             <if test="weekNum != null">week_num = #{weekNum},</if>
+            <if test="periodNum != null">period_num = #{periodNum},</if>
         </trim>
         where id = #{id}
     </update>
